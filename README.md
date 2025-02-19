@@ -1,50 +1,61 @@
-# React + TypeScript + Vite
+# Proyecto de Autenticación React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Un sistema de autenticación con MFA construido con React, que incluye registro seguro de usuarios, inicio de sesión.
 
-Currently, two official plugins are available:
+## Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Registro de usuarios
+- Inicio de sesión con y sin MFA
+- Funcionalidad de configuración de MFA
+- Sistema de rutas protegidas
 
-## Expanding the ESLint configuration
+## Tecnologías Utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- React 19.x
+- React Router v7
+- Axios para peticiones API
+- Zustand para estado global
+- Tailwind CSS para estilos
 
-- Configure the top-level `parserOptions` property like this:
+## Requisitos Previos
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+Antes de ejecutar este proyecto, asegúrate de tener:
+
+- Node.js (v18 o superior)
+- Gestor de paquetes yarn
+- Variable de entorno VITE_URL para la API de Django
+
+## Instalación
+
+1. Clona el repositorio:
+```bash
+git clone https://github.com/maycol064/auth-page
+cd auth-page
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+2. Instala las dependencias:
+```bash
+yarn install
 ```
+
+3. Crea un archivo `.env` en el directorio raíz:
+```
+VITE_URL=tu_url_api
+```
+
+4. Inicia el servidor de desarrollo:
+```bash
+yarn dev
+```
+
+## Integración con API
+
+El proyecto espera los siguientes endpoints de API:
+
+  - `POST /auth/login/` → Iniciar sesión
+  - `POST /auth/logout/` → Cerrar sesión
+  - `POST /auth/register/` → Registrar usuario
+  - `POST /auth/verify_mfa/` → Verificar token
+  - `POST /auth/initiate_mfa_setup/` → Inicializar la configuración
+  - `POST /auth/verify_and_enable_mfa/` → Verificacar token por primerq vez y habilitar mfa
+  - `POST /auth/disable_mfa/` → Deshabilitar mfa
